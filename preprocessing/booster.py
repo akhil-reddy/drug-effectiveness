@@ -38,5 +38,4 @@ onco_poly["Drug2"] = onco_poly["Drug2"].apply(get_canon_smile)
 joined = pd.concat([drug_comb,onco_poly], axis=1, join='inner')
 
 joined = pd.concat([joined, catalyst_data], axis=1, join='inner')
-onco_poly
 
