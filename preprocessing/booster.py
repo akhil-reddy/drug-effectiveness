@@ -6,7 +6,7 @@ import pandas as pd
 
 indigo = Indigo()
 
-catalyst = Catalyst(name = 'USPTO_Catalyst')
+'''catalyst = Catalyst(name = 'USPTO_Catalyst')
 label_map = get_label_map(name = 'USPTO_Catalyst', task = 'Catalyst')
 drug_smiles = []
 catalyst_smiles = []
@@ -22,6 +22,9 @@ for reactant, cat in zip(catalyst.entity1, catalyst.y):
 
 catalyst_data = pd.DataFrame(zip(drug_smiles, catalyst_smiles), columns=["Drug1", "catalyst"])
 
+catalyst_data.to_csv("catalyst.csv", sep='\t', encoding='utf-8')'''
+catalyst_data = pd.read_csv('catalyst.csv')
+
 def get_canon_smile(smile):
     canon_smile = indigo.loadMolecule(smile)
     canon_smile.aromatize()
@@ -31,11 +34,19 @@ drug_comb = DrugSyn(name = 'DrugComb').df
 drug_comb["Drug1"] = drug_comb["Drug1"].apply(get_canon_smile)
 drug_comb["Drug2"] = drug_comb["Drug2"].apply(get_canon_smile)
 
+drug_comb.to_csv("drug_comb.csv", sep='\t', encoding='utf-8')
+drug_comb = pd.read_csv('drug_comb.csv')
+
 onco_poly = DrugSyn(name = 'OncoPolyPharmacology').df
 onco_poly["Drug1"] = onco_poly["Drug1"].apply(get_canon_smile)
 onco_poly["Drug2"] = onco_poly["Drug2"].apply(get_canon_smile)
 
-joined = pd.concat([drug_comb,onco_poly], axis=1, join='inner')
+onco_poly.to_csv("onco_poly.csv", sep='\t', encoding='utf-8')
+onco_poly = pd.read_csv('onco_poly.csv')
 
-joined = pd.concat([joined, catalyst_data], axis=1, join='inner')
+joined = pd.merge([drug_comb,onco_poly], axis=1, how='inner')
+
+joined = pd.merge([joined, catalyst_data], axis=1, how='inner')
+
+joined
 
