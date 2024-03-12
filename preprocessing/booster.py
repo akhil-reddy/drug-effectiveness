@@ -6,7 +6,7 @@ import pandas as pd
 
 indigo = Indigo()
 
-'''catalyst = Catalyst(name = 'USPTO_Catalyst')
+catalyst = Catalyst(name = 'USPTO_Catalyst')
 label_map = get_label_map(name = 'USPTO_Catalyst', task = 'Catalyst')
 drug_smiles = []
 catalyst_smiles = []
@@ -20,7 +20,7 @@ for reactant, cat in zip(catalyst.entity1, catalyst.y):
     catSmile.aromatize()
     catalyst_smiles.append(catSmile.canonicalSmiles())
 
-catalyst_data = pd.DataFrame([drug_smiles, catalyst_smiles], columns=["smile", "catalyst"])'''
+catalyst_data = pd.DataFrame([drug_smiles, catalyst_smiles], columns=["smile", "catalyst"])
 
 def get_canon_smile(smile):
     canon_smile = indigo.loadMolecule(smile)
@@ -30,13 +30,13 @@ def get_canon_smile(smile):
 drug_comb = DrugSyn(name = 'DrugComb').df
 drug_comb["Drug1"] = drug_comb["Drug1"].apply(get_canon_smile)
 drug_comb["Drug2"] = drug_comb["Drug2"].apply(get_canon_smile)
-drug_comb.set_index('Drug1')
 
 onco_poly = DrugSyn(name = 'OncoPolyPharmacology').df
 onco_poly["Drug1"] = onco_poly["Drug1"].apply(get_canon_smile)
 onco_poly["Drug2"] = onco_poly["Drug2"].apply(get_canon_smile)
 
-joined = pd.concat([drug_comb.set_index('Drug1'),onco_poly.set_index('Drug1')], axis=1, join='inner')
+joined = pd.concat([drug_comb,onco_poly], axis=1, join='inner')
 
+joined = pd.concat([joined, catalyst_data], axis=1, join='inner')
 onco_poly
 
