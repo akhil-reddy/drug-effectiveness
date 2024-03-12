@@ -20,7 +20,7 @@ for reactant, cat in zip(catalyst.entity1, catalyst.y):
     catSmile.aromatize()
     catalyst_smiles.append(catSmile.canonicalSmiles())
 
-catalyst_data = pd.DataFrame([drug_smiles, catalyst_smiles], columns=["smile", "catalyst"])
+catalyst_data = pd.DataFrame(zip(drug_smiles, catalyst_smiles), columns=["smile", "catalyst"])
 
 def get_canon_smile(smile):
     canon_smile = indigo.loadMolecule(smile)
