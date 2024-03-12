@@ -34,19 +34,19 @@ drug_comb = DrugSyn(name = 'DrugComb').df
 drug_comb["Drug1"] = drug_comb["Drug1"].apply(get_canon_smile)
 drug_comb["Drug2"] = drug_comb["Drug2"].apply(get_canon_smile)
 
-drug_comb.to_csv("drug_comb.csv", sep='\t', encoding='utf-8')
-drug_comb = pd.read_csv('drug_comb.csv')
+'''drug_comb.to_csv("drug_comb.csv", sep='\t', encoding='utf-8')
+drug_comb = pd.read_csv('drug_comb.csv')'''
 
-onco_poly = DrugSyn(name = 'OncoPolyPharmacology').df
+'''onco_poly = DrugSyn(name = 'OncoPolyPharmacology').df
 onco_poly["Drug1"] = onco_poly["Drug1"].apply(get_canon_smile)
 onco_poly["Drug2"] = onco_poly["Drug2"].apply(get_canon_smile)
 
-onco_poly.to_csv("onco_poly.csv", sep='\t', encoding='utf-8')
+onco_poly.to_csv("onco_poly.csv", sep='\t', encoding='utf-8')'''
 onco_poly = pd.read_csv('onco_poly.csv')
 
-joined = pd.merge([drug_comb,onco_poly], axis=1, how='inner')
+joined = pd.merge(drug_comb, onco_poly, how='inner')
 
-joined = pd.merge([joined, catalyst_data], axis=1, how='inner')
+joined = pd.merge(joined, catalyst_data, how='inner')
 
 joined
 
