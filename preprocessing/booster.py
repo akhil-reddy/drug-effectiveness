@@ -48,5 +48,5 @@ joined = pd.merge(drug_comb, onco_poly, how='inner')
 
 # joined = pd.merge(joined, catalyst_data, how='inner')
 
-joined
+joined.to_csv("catalyst_joined.csv", index=False)
 
