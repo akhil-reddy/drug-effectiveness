@@ -47,6 +47,6 @@ onco_poly = pd.read_csv('onco_poly.csv', sep='\t')
 joined = pd.merge(drug_comb, onco_poly, how='inner')
 
 # joined = pd.merge(joined, catalyst_data, how='inner')
-
+joined.drop(['Cell_Line', 'CellLine', "Cell_Line_ID", "Unnamed: 0"], axis=1, inplace=True)
 joined.to_csv("catalyst_joined.csv", index=False)
 
