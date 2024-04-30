@@ -1,6 +1,3 @@
-Here's the drug interaction and effectiveness report formatted as a JSON object:
-
-```json
 {
   "ReportTitle": "Drug Interaction and Effectiveness Report for Palmitic Acid and Dabigatran Etexilate",
   "PreparedFor": "Manufacturer",
@@ -45,4 +42,3 @@ Here's the drug interaction and effectiveness report formatted as a JSON object:
     "Explore formulation improvements to enhance solubility and absorption characteristics of the combined drug regimen."
   ]
 }
-```
